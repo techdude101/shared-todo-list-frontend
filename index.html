@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./styles.css">
+  <link href="/./assets/fontawesome/css/fontawesome.css" rel="stylesheet" />
+  <link href="/./assets/fontawesome/css/solid.css" rel="stylesheet" />
+  <script type="text/javascript" src="./bundle.js" defer></script>
+  <title>To-Do List</title>
+</head>
+<body>
+  <main class="App">
+    <h1 class="app-header">To-Do List</h1>
+    <form class="form" onSubmit={handleSubmitLocal}>
+      <label htmlFor={fieldName}>Add To-Do</label>
+      <input type="text" id={fieldName} name={fieldName} placeholder={placeholder}
+          class="form-input" required pattern={pattern} />
+      <input type="submit" value="Add" class="form-button" />
+    </form>
+    <ul>
+      <li class="todo-li">
+        <span onClick={handleComplete} id="1"
+            class="todo-text">
+                {text}
+        </span>
+        <span id="2" class="todo-icons">
+          <i class="fa-solid fa-circle-check todo-complete"></i>
+          <i class="fa-solid fa-trash todo-delete"></i>
+        </span>
+    </li>
+    </ul>
+  </main>
+</body>
+</html>
