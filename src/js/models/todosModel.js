@@ -27,7 +27,10 @@ class ToDosModel {
     
     const todoItemsAreValid = ToDosModel.validateTodoItems(todoItems);
 
-    if (todoItemsAreValid != true) return [];
+    if (todoItemsAreValid != true) {
+      console.error("Invalid to-do items");
+      return [];
+    }
     return todoItems;
   }
 
@@ -47,6 +50,7 @@ class ToDosModel {
       const errorValidation  = todoSchema.validate(todoItems[todoIndex]).error;
       
       if (errorValidation !== undefined) {
+        console.error(`Invalid to-do item ${errorValidation}`);
         todoItemsAreValid = false;
       }
     }
