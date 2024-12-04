@@ -15,7 +15,7 @@ test('Add a new valid todo item', () => {
   
   const todoItem = todos.todos[0];
   const expectedTodoItem = {
-    id: 0,
+    id: 1,
     data: "Write more unit tests",
     completed: false,
     completed_timestamp: 0
