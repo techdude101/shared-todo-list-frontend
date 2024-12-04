@@ -53,7 +53,7 @@ template.innerHTML = `
   max-height: 1.5rem;
 }
 </style>
-<li class="todo-li" role="list-item">
+<li class="todo-li" role="listitem">
         <span class="todo-text" tabindex="0"></span>
         <span class="todo-icons">
           <img src="./assets/icons/circle-check.svg" class="todo-icon" tabindex="0" alt="mark complete" />
