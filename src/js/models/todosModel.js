@@ -1,8 +1,9 @@
 import ToDoModel from './todoModel.js';
 import { todoSchema, todosSchema } from '../schemas/todo.js';
+import { getMaxInArray } from '../utils/arrayUtils.js';
 
 /**
- * Represents a collection of TODO items.
+ * Represents a collection of todo items.
  * @class
  */
 class ToDosModel {
@@ -27,7 +28,10 @@ class ToDosModel {
     
     const todoItemsAreValid = ToDosModel.validateTodoItems(todoItems);
 
-    if (todoItemsAreValid != true) return [];
+    if (todoItemsAreValid != true) {
+      console.error("Invalid to-do items");
+      return [];
+    }
     return todoItems;
   }
 
@@ -47,11 +51,32 @@ class ToDosModel {
       const errorValidation  = todoSchema.validate(todoItems[todoIndex]).error;
       
       if (errorValidation !== undefined) {
+        console.error(`Invalid to-do item ${errorValidation}`);
         todoItemsAreValid = false;
       }
     }
 
     return todoItemsAreValid;
+  }
+
+  /**
+   * Get the next available todo ID.
+   * @returns number the next available todo ID as a number
+   */
+  getNextAvailableTodoId = () => {
+
+    if (this.todos.length === 0) {
+      return 1;
+    }
+
+    if (this.todos.length <= 0) {
+      return -1;
+    }
+
+    const todoIds = this.todos.map(todoItem => todoItem.id);
+    const maxTodoId = getMaxInArray(todoIds);
+
+    return maxTodoId + 1;
   }
 
   /**
@@ -61,11 +86,17 @@ class ToDosModel {
    */
   addTodo = (todoText) => {
    
-    const todoId = this.todos.length;
+    const todoId = this.getNextAvailableTodoId();
     const todoItem = new ToDoModel(todoId, todoText, false, 0);
+    const todoItemIsValid = ToDosModel.validateTodoItems([todoItem]);
+    
+    if (!todoItemIsValid) {
+      return null;
+    }
+
     this.todos.push(todoItem);
     
-    return this.todos;
+    return todoItem;
   }
 
 
@@ -84,17 +115,27 @@ class ToDosModel {
 
   /**
   * Mark a todo as complete.
-  * @param {number} todoId  todoId the ID of the todo to be marked as complete.
+  * @param {number} todoId the ID of the todo to be marked as complete.
   * @returns an array of todo items.
   */
   markTodoComplete = (todoId) => {
 
-    const todo = this.todos[todoId];
-    if (!todo.completed) {
-      todo.completed = true;
-      todo.completed_timestamp = Math.floor(new Date().getTime() / 1000);
+    let todoIndex = -1;
+    for (let index = 0; index < this.todos.length; index++) {
+      if (this.todos[index].id == todoId) {
+        todoIndex = index;
+      }
+    }
+
+    if (todoIndex == -1) {
+      return;
+    }
+
+    if (!this.todos[todoIndex].completed) {
+      this.todos[todoIndex].completed = true;
+      this.todos[todoIndex].completed_timestamp = Math.floor(new Date().getTime() / 1000);
     } else {
-      todo.completed = false;
+      this.todos[todoIndex].completed = false;
     }
 
     return;

@@ -1,5 +1,5 @@
 /**
- * To Do Item Schemas.
+ * To-Do Item Schemas.
  */
 const Joi = require('joi');
 
@@ -7,15 +7,10 @@ const todoSchema = Joi.object({
   id: Joi.number().min(0).required(),
   data: Joi.string().min(1).max(32).required(),
   completed: Joi.boolean().default(false),
-  completed_timestamp: Joi.number().min(0).default(0)
+  completed_timestamp: Joi.number().min(0).allow(null).default(0)
 });
 
-const newTodoSchema = Joi.object({
-  data: Joi.string().min(1).max(32).required(),
-  completed: Joi.boolean().default(false),
-  completed_timestamp: Joi.number().min(0).default(0)
-});
 
 const todosSchema = Joi.array().unique();
 
-module.exports = {todoSchema, todosSchema, newTodoSchema};
+module.exports = {todoSchema, todosSchema};
