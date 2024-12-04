@@ -62,6 +62,9 @@ template.innerHTML = `
 </li>
 `;
 
+/**
+ * To-do list item web element.
+ */
 class TodoListItem extends HTMLElement {
   constructor() {
     super();
@@ -71,7 +74,11 @@ class TodoListItem extends HTMLElement {
     this.addEventListener('click', this.handleComplete);
   }
 
+  /**
+   * Invoked when the custom element is first connected to the document's DOM.
+   */
   connectedCallback() {
+
     const todoTextSpan = this.shadowRoot.querySelector('span');
     todoTextSpan.textContent = this.getAttribute('text');
     todoTextSpan.addEventListener('keyup', this.handleCompleteKeyboard);
@@ -88,7 +95,11 @@ class TodoListItem extends HTMLElement {
     }
   }
 
+  /**
+   * Invoked when the custom element is disconnected from the document's DOM.
+   */
   disconnectedCallback() {
+
     const todoTextSpan = this.shadowRoot.querySelector('span');
     this.removeEventListener('click', this.handleComplete);
     
@@ -98,6 +109,12 @@ class TodoListItem extends HTMLElement {
     todoTextSpan.removeEventListener('keyup', this.handleCompleteKeyboard);
   }
 
+  /**
+   * Handles when a user clicks the web element to mark a to-do item as complete.
+   * @param {Event} event mouse click
+   * @event x-todo-complete
+   * @fires x-todo-complete
+   */
   handleComplete = (event) => {
     event.stopPropagation();
 
@@ -112,6 +129,12 @@ class TodoListItem extends HTMLElement {
     }));
   }
 
+  /**
+   * Handles when a user clicks the web element to delete a to-do item.
+   * @param {Event} event keyboard event
+   * @event x-todo-complete
+   * @fires x-todo-complete
+   */
   handleCompleteKeyboard = (event) => {
     event.stopPropagation();
 
@@ -128,6 +151,12 @@ class TodoListItem extends HTMLElement {
     }));
   }
 
+  /**
+   * Handles when a user presses enter on the keyboard to mark a to-do item as complete.
+   * @param {Event} event mouse click
+   * @event x-todo-delete
+   * @fires x-todo-delete
+   */
   handleDelete = (event) => {
     event.stopPropagation();
 
@@ -141,6 +170,12 @@ class TodoListItem extends HTMLElement {
     }));
   }
 
+  /**
+   * Handles when a user presses enter on the keyboard to delete a to-do item.
+   * @param {Event} event keyboard event
+   * @event x-todo-delete
+   * @fires x-todo-delete
+   */
   handleDeleteKeyboard = (event) => {
     event.stopPropagation();
 
