@@ -1,8 +1,9 @@
 const path = require("path");
 const webpack = require("webpack");
 
-module.exports = (env) => {
-
+module.exports = () => {
+  console.log(`API URL = ${process.env.API_URL}`);
+  
   return {
     mode: "development",
     entry: "./src/js/index.js",
@@ -27,10 +28,8 @@ module.exports = (env) => {
     },
     plugins: [
       new webpack.DefinePlugin({
-        "process.env": {
-          NODE_ENV: JSON.stringify("development"),
-          API_URL: JSON.stringify(env.API_URL),
-        },
+        'process.env.API_URL': JSON.stringify(process.env.API_URL),
+        'process.env.USER_ID': JSON.stringify(process.env.USER_ID)
       }),
     ],
   };

@@ -3,7 +3,7 @@ template.innerHTML = `
 <style>
 .todo-li {
   display: grid;
-  grid-template-columns: 5fr 1fr;
+  grid-template-columns: 5fr 2fr;
   padding: 0.5em 1em;
   border-bottom: 1px solid black;
 }
@@ -51,6 +51,11 @@ template.innerHTML = `
 
 .todo-icon {
   max-height: 1.5rem;
+}
+@media screen and (max-width: 600px) {
+  .todo-icon {
+    min-height: 2rem;
+  }
 }
 </style>
 <li class="todo-li" role="listitem">

@@ -10,7 +10,7 @@ export const DATASERVICE_BASE_URL = process.env.API_URL;
  * @type {string}
  * @default
  */
-export const DATASERVICE_PATH_TODOS = "/todos/1";
+export const DATASERVICE_PATH_TODOS = process.env.USER_ID ? `/todos/${process.env.USER_ID}` : "/todos/";
 
 /**
  * @constant

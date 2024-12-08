@@ -207,6 +207,14 @@ const renderTodos = () => {
   }
 }
 
+if (process.env.USER_ID) {
+  const topHeader = document.querySelector('#top-heading')
+  const demoMessage = document.createElement('p');
+  demoMessage.innerText = "Demo mode: to-do list will be cleared periodically";
+  
+  topHeader.parentNode.insertBefore(demoMessage, topHeader.nextSibling);
+}
+
 const addTodoForm = document.querySelector('#add-todo-form');
 addTodoForm.addEventListener('submit', handleTodoFormSubmit);
 
