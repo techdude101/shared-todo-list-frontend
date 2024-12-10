@@ -1,6 +1,6 @@
 services:
   frontend: 
-    image: td1011/stl-frontend:1.0.0-demo
+    image: td1011/stl-frontend:1.1.0-demo
     container_name: frontend
     ports:
       - 8000:80

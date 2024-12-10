@@ -4,6 +4,8 @@ import ToDoModel from './models/todoModel';
 import { DATASERVICE_BASE_URL, DATASERVICE_PATH_TODOS, API_TIMEOUT_IN_SECONDS } from './constants';
 
 const todoUlElement = document.querySelector('#todo-ul');
+const addTodoForm = document.querySelector('#add-todo-form');
+const loadingIndicator = document.querySelector('#loading-indicator');
 
 let todoItems;
 
@@ -207,6 +209,28 @@ const renderTodos = () => {
   }
 }
 
+/**
+ * Show the loading indicator.
+ * @param {Element} loadingIndicator loading indicator web element
+ * @param {Element} elementToHide    web element to hide
+ */
+const showLoadingIndicator = (loadingIndicator, elementToHide) => {
+  loadingIndicator.style.visibility = 'visible';
+  elementToHide.style.display = 'hidden';
+}
+
+/**
+ * Hide the loading indicator.
+ * @param {Element} loadingIndicator loading indicator web element
+ * @param {Element} elementToShow    web element to show
+ */
+const hideLoadingIndicator = (loadingIndicator, elementToShow) => {
+  loadingIndicator.style.visibility = 'hidden';
+  elementToShow.style.display = 'visible';
+}
+
+addTodoForm.addEventListener('submit', handleTodoFormSubmit);
+
 if (process.env.USER_ID) {
   const topHeader = document.querySelector('#top-heading')
   const demoMessage = document.createElement('p');
@@ -215,11 +239,12 @@ if (process.env.USER_ID) {
   topHeader.parentNode.insertBefore(demoMessage, topHeader.nextSibling);
 }
 
-const addTodoForm = document.querySelector('#add-todo-form');
-addTodoForm.addEventListener('submit', handleTodoFormSubmit);
+showLoadingIndicator(loadingIndicator, todoUlElement);
 
 const todosFromDb = await getTodosFromDataService(
   `${DATASERVICE_BASE_URL}${DATASERVICE_PATH_TODOS}`, API_TIMEOUT_IN_SECONDS);
+
+hideLoadingIndicator(loadingIndicator, todoUlElement);
 
 if (!todosFromDb) {
   alert("Error retrieving data :(");
