@@ -5,7 +5,7 @@ services:
       args:
         API_URL: https://stl-demo.techdude101.com/api
         USER_ID: 1
-    image: frontend:1.0.0-demo
+    image: frontend:1.1.0-demo
     container_name: frontend
     ports:
       - 8000:80
